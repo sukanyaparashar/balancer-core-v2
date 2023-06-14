@@ -14,12 +14,12 @@ export default async function (hre: HardhatRuntimeEnvironment): Promise<void> {
     log: true,
   });
 
-  if (hre.network.live) {
+  /*if (hre.network.live) {
     await tenderly.push({
       name: 'WeightedPoolFactory',
       address: weightedFactory.address,
     });
-  }
+  }*/
 
   const stableFactory = await deploy('StablePoolFactory', {
     from: deployer,
@@ -27,10 +27,10 @@ export default async function (hre: HardhatRuntimeEnvironment): Promise<void> {
     log: true,
   });
 
-  if (hre.network.live) {
+  /*if (hre.network.live) {
     await tenderly.push({
       name: 'StablePoolFactory',
       address: stableFactory.address,
     });
-  }
+  }*/
 }
