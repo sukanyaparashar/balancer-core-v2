@@ -13,6 +13,7 @@ import { bn } from '../../helpers/numbers';
 import { deployPoolFromFactory, PoolName } from '../../helpers/pools';
 import { deploySortedTokens, mintTokens, TokenList } from '../../helpers/tokens';
 import { advanceTime, MONTH } from '../../helpers/time';
+import { contracts } from './contracts';
 
 export const tokenSymbols = ['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG', 'HHH'];
 
@@ -21,13 +22,20 @@ export async function setupEnvironment(): Promise<{
   tokens: TokenList;
   trader: SignerWithAddress;
 }> {
-  const { admin, creator, trader } = await getSigners();
+  const { deployer, admin, creator, trader } = await getSigners();
 
-  const weth = await deploy('WETH', { args: [admin.address] });
+  console.log('deployer', deployer.address);
+  console.log('admin', admin.address);
+  console.log('creator', creator.address);
+  console.log('trader', trader.address);
 
+  /*const weth = await deploy('WETH', { args: [admin.address] });
   const authorizer = await deploy('Authorizer', { args: [admin.address] });
+  const vault = await deploy('Vault', { args: [authorizer.address, weth.address, 0, 0] });*/
 
-  const vault = await deploy('Vault', { args: [authorizer.address, weth.address, 0, 0] });
+  const authorizer = (await ethers.getContractFactory('Authorizer', admin)).attach(contracts.authorizer);
+  const weth = (await ethers.getContractFactory('WETH', admin)).attach(contracts.weth);
+  const vault = (await ethers.getContractFactory('Vault', admin)).attach(contracts.vault);
 
   const tokens = await deploySortedTokens(tokenSymbols, Array(tokenSymbols.length).fill(18));
 
@@ -144,13 +152,14 @@ export function pickTokenAddresses(tokens: TokenList, size: number, offset?: num
 }
 
 export async function getSigners(): Promise<{
+  deployer: SignerWithAddress;
   admin: SignerWithAddress;
   creator: SignerWithAddress;
   trader: SignerWithAddress;
 }> {
-  const [, admin, creator, trader] = await ethers.getSigners();
+  const [deployer, admin, creator, trader] = await ethers.getSigners();
 
-  return { admin, creator, trader };
+  return { deployer, admin, creator, trader };
 }
 
 export function printGas(gas: number | BigNumber): string {

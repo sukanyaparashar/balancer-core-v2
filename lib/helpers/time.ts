@@ -14,8 +14,9 @@ export const fromNow = async (seconds: number): Promise<BigNumber> => {
 };
 
 export const advanceTime = async (seconds: BigNumberish): Promise<void> => {
-  await ethers.provider.send('evm_increaseTime', [parseInt(seconds.toString())]);
-  await ethers.provider.send('evm_mine', []);
+  //await ethers.provider.send('evm_increaseTime', [parseInt(seconds.toString())]);
+  //await ethers.provider.send('evm_mine', []);
+  await ethers.provider.send('eth_blockNumber', []);
 };
 
 export const setNextBlockTimestamp = async (timestamp: BigNumberish): Promise<void> => {

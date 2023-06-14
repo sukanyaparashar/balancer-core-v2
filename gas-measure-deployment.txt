@@ -1,0 +1,21 @@
+$ yarn measure-gas-deployment --network neonDevnet
+yarn run v1.22.19
+warning ../../../../../package.json: No license field
+$ hardhat run lib/scripts/gas-measurement/deployment.ts --network neonDevnet
+
+# Vault
+Deployment costs 222131.6k
+Deployed bytecode size is 23.938 kB
+
+# WeightedPoolFactory
+Deployment costs 186069.6k
+Deployed bytecode size is 23.889 kB
+
+# WeightedPool2TokensFactory
+Deployment costs 185487.0k
+Deployed bytecode size is 23.808 kB
+
+# StablePoolFactory
+Deployment costs 161794.0k
+Deployed bytecode size is 20.485 kB
+✨  Done in 87.77s.
