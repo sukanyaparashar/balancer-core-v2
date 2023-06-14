@@ -96,6 +96,8 @@ export default {
         OTHER_PRIVATE_KEY,
       ], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
   },
   namedAccounts: {
