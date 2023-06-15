@@ -15,7 +15,7 @@ import { deploySortedTokens, mintTokens, TokenList } from '../../helpers/tokens'
 import { advanceTime, MONTH } from '../../helpers/time';
 import { contracts } from './contracts';
 
-export const tokenSymbols = ['AAA', 'BBB', 'CCC']; //, 'DDD', 'EEE', 'FFF', 'GGG', 'HHH'];
+export const tokenSymbols = ['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG', 'HHH'];
 
 export async function setupEnvironment(): Promise<{
   vault: Contract;

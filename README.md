@@ -39,3 +39,20 @@ Most of the source code is licensed under the GNU General Public License Version
 - All files under `contracts/lib/openzeppelin`, are based on the [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) library, and as such are licensed under the MIT License: see [LICENSE](./contracts/lib/openzeppelin/LICENSE).
 - `contracts/lib/math/LogExpMath.sol` is licensed under the MIT License.
 - All other files under `lib` and `test` are unlicensed.
+
+## NeonEVM
+
+The basic deployment: Authorizer, Vault, WETH and Weighted Pools
+
+```
+yarn hardhat deploy --network neonDevnet
+
+# replace deployed addresses in lib/scripts/gas-measurement/contracts.ts
+
+# Run these scripts for gas measurement
+$ yarn measure-gas-deployment --network neonDevnet
+$ yarn measure-gas-multihop --network neonDevnet
+$ yarn measure-gas-join-exit --network neonDevnet
+$ yarn measure-gas-single-pair --network neonDevnet
+
+```
