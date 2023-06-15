@@ -6,9 +6,10 @@ import 'hardhat-local-networks-config-plugin';
 import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-waffle';
 
-import { task } from 'hardhat/config';
+import { extendEnvironment, task } from 'hardhat/config';
 import { TASK_COMPILE } from 'hardhat/builtin-tasks/task-names';
 import overrideQueryFunctions from './lib/scripts/plugins/overrideQueryFunctions';
+import Verifier from './lib/scripts/plugins/verifier';
 
 task(TASK_COMPILE).setAction(overrideQueryFunctions);
 
@@ -25,6 +26,7 @@ const CHAIN_IDS = {
   mainnet: 1,
   rinkeby: 4,
   ropsten: 3,
+  sepolia: 11155111,
   dockerParity: 17,
   neonDevnet: 245022926,
 };
@@ -38,6 +40,20 @@ const ADMIN_PRIVATE_KEY = process.env.CONTROLLER_PRIVATE_KEY || '';
 const CREATOR_PRIVATE_KEY = process.env.CREATOR_PRIVATE_KEY || '';
 const TRADER_PRIVATE_KEY = process.env.CONTROLLER_PRIVATE_KEY || '';
 const OTHER_PRIVATE_KEY = process.env.OTHER_PRIVATE_KEY || '';
+
+declare module 'hardhat/types/runtime' {
+  export interface HardhatRuntimeEnvironment {
+    neonscan: {
+      verifier: Verifier;
+    };
+  }
+}
+
+extendEnvironment((hre) => {
+  hre.neonscan = {
+    verifier: new Verifier(hre.network, 'no-api-key'),
+  };
+});
 
 export default {
   networks: {
@@ -85,6 +101,12 @@ export default {
       accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
+    sepolia: {
+      chainId: CHAIN_IDS.sepolia,
+      url: `https://sepolia.infura.io/v3/${INFURA_KEY}`,
+      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      saveDeployments: true,
+    },
     neonDevnet: {
       chainId: CHAIN_IDS.neonDevnet,
       url: 'https://devnet.neonevm.org',
@@ -95,6 +117,11 @@ export default {
         TRADER_PRIVATE_KEY, // trader
         OTHER_PRIVATE_KEY,
       ], // Using private key instead of mnemonic for vanity deploy
+      verify: {
+        etherscan: {
+          apiUrl: 'https://devnet-api.neonscan.org/hardhat/verify',
+        },
+      },
       saveDeployments: true,
       gas: 2100000,
       gasPrice: 8000000000,
@@ -170,5 +197,20 @@ export default {
   paths: {
     deploy: 'deployments/migrations',
     deployments: 'deployments/artifacts',
+  },
+  etherscan: {
+    apiKey: {
+      neonDevnet: 'A',
+    },
+    customChains: [
+      {
+        network: 'neonDevnet',
+        chainId: 245022926,
+        urls: {
+          apiURL: 'https://devnet-api.neonscan.org/hardhat/verify',
+          browserURL: 'https://devnet.neonscan.org',
+        },
+      },
+    ],
   },
 };
