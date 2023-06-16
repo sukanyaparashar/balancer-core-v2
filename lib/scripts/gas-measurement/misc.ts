@@ -17,11 +17,7 @@ import { contracts } from './contracts';
 
 export const tokenSymbols = ['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG', 'HHH'];
 
-export async function setupEnvironment(): Promise<{
-  vault: Contract;
-  tokens: TokenList;
-  trader: SignerWithAddress;
-}> {
+export async function setupEnvironment(): Promise<any> {
   const { deployer, admin, creator, trader } = await getSigners();
 
   console.log('deployer', deployer.address);
@@ -30,8 +26,13 @@ export async function setupEnvironment(): Promise<{
   console.log('trader', trader.address);
 
   /*const weth = await deploy('WETH', { args: [admin.address] });
+  await weth.deployTransaction.wait(5);
+
   const authorizer = await deploy('Authorizer', { args: [admin.address] });
-  const vault = await deploy('Vault', { args: [authorizer.address, weth.address, 0, 0] });*/
+  await authorizer.deployTransaction.wait(5);
+
+  const vault = await deploy('Vault', { args: [authorizer.address, weth.address, 0, 0] });
+  await vault.deployTransaction.wait(5);*/
 
   const authorizer = (await ethers.getContractFactory('Authorizer', admin)).attach(contracts.authorizer);
   const weth = (await ethers.getContractFactory('WETH', admin)).attach(contracts.weth);
@@ -130,8 +131,8 @@ export async function getWeightedPool(
   offset?: number
 ): Promise<string> {
   return size === 2
-    ? deployPool(vault, pickTokens(tokens, size, offset), 'WeightedPool2Tokens')
-    : deployPool(vault, pickTokens(tokens, size, offset), 'WeightedPool');
+    ? await deployPool(vault, pickTokens(tokens, size, offset), 'WeightedPool2Tokens')
+    : await deployPool(vault, pickTokens(tokens, size, offset), 'WeightedPool');
 }
 
 export async function getStablePool(

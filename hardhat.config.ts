@@ -74,37 +74,43 @@ export default {
     mainnet: {
       chainId: CHAIN_IDS.mainnet,
       url: `https://mainnet.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [`${DEPLOYER_PRIVATE_KEY}`, `${CONTROLLER_PRIVATE_KEY}`], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
     ropsten: {
       chainId: CHAIN_IDS.ropsten,
       url: `https://ropsten.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [`${DEPLOYER_PRIVATE_KEY}`, `${CONTROLLER_PRIVATE_KEY}`], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
     kovan: {
       chainId: CHAIN_IDS.kovan,
       url: `https://kovan.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [`${DEPLOYER_PRIVATE_KEY}`, `${CONTROLLER_PRIVATE_KEY}`], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
     rinkeby: {
       chainId: CHAIN_IDS.rinkeby,
       url: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [`${DEPLOYER_PRIVATE_KEY}`, `${CONTROLLER_PRIVATE_KEY}`], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
     goerli: {
       chainId: CHAIN_IDS.goerli,
       url: `https://goerli.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [
+        DEPLOYER_PRIVATE_KEY, // deployer
+        ADMIN_PRIVATE_KEY, // admin
+        CREATOR_PRIVATE_KEY, // creator
+        TRADER_PRIVATE_KEY, // trader
+        OTHER_PRIVATE_KEY, // other
+      ],
       saveDeployments: true,
     },
     sepolia: {
       chainId: CHAIN_IDS.sepolia,
       url: `https://sepolia.infura.io/v3/${INFURA_KEY}`,
-      accounts: [DEPLOYER_PRIVATE_KEY, CONTROLLER_PRIVATE_KEY], // Using private key instead of mnemonic for vanity deploy
+      accounts: [`${DEPLOYER_PRIVATE_KEY}`, `${CONTROLLER_PRIVATE_KEY}`], // Using private key instead of mnemonic for vanity deploy
       saveDeployments: true,
     },
     neonDevnet: {
@@ -115,7 +121,7 @@ export default {
         ADMIN_PRIVATE_KEY, // admin
         CREATOR_PRIVATE_KEY, // creator
         TRADER_PRIVATE_KEY, // trader
-        OTHER_PRIVATE_KEY,
+        OTHER_PRIVATE_KEY, // other
       ], // Using private key instead of mnemonic for vanity deploy
       verify: {
         etherscan: {
