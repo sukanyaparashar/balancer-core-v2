@@ -42,17 +42,34 @@ Most of the source code is licensed under the GNU General Public License Version
 
 ## NeonEVM
 
+In your .env file, add these -
+
+```
+
+DEPLOYER_PRIVATE_KEY=
+CONTROLLER_PRIVATE_KEY=
+CREATOR_PRIVATE_KEY=
+OTHER_PRIVATE_KEY=
+
+```
+
 The basic deployment: Authorizer, Vault, WETH and Weighted Pools
 
 ```
+
 yarn hardhat deploy --network neonDevnet
 
 # replace deployed addresses in lib/scripts/gas-measurement/contracts.ts
 
 # Run these scripts for gas measurement
+
 $ yarn measure-gas-deployment --network neonDevnet
 $ yarn measure-gas-multihop --network neonDevnet
 $ yarn measure-gas-join-exit --network neonDevnet
 $ yarn measure-gas-single-pair --network neonDevnet
+
+```
+
+```
 
 ```
