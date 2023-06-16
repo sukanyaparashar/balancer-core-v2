@@ -17,6 +17,8 @@ export async function deploy(contract: string, { from, args }: ContractDeploymen
   if (!from) from = (await ethers.getSigners())[0];
   const factory = (await getFactory(contract)).connect(from);
   const instance = await factory.deploy(...args);
+
+  console.log('Deployed', contract, 'at', instance.address);
   return instance.deployed();
 }
 

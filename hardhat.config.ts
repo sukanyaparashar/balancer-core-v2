@@ -111,7 +111,7 @@ export default {
       chainId: CHAIN_IDS.neonDevnet,
       url: 'https://devnet.neonevm.org',
       accounts: [
-        DEPLOYER_PRIVATE_KEY,
+        DEPLOYER_PRIVATE_KEY, // deployer
         ADMIN_PRIVATE_KEY, // admin
         CREATOR_PRIVATE_KEY, // creator
         TRADER_PRIVATE_KEY, // trader
@@ -123,7 +123,6 @@ export default {
         },
       },
       saveDeployments: true,
-      gas: 'auto', //2100000,
       gasPrice: 'auto', //8000000000,
     },
   },
